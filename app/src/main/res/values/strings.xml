@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">QuizzApp-Project</string>
+    <string name="app_name">QuizzApp</string>
+    <string name="btn_start">Jugar</string>
+    <string name="btn_options">Opciones</string>
 </resources>
