@@ -2,4 +2,7 @@
     <string name="app_name">QuizzApp</string>
     <string name="btn_start">Jugar</string>
     <string name="btn_options">Opciones</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="btn_prev">Anterior</string>
+    <string name="numQuestion">Pregunta 1/10</string>
 </resources>
