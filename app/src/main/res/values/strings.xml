@@ -2,4 +2,165 @@
     <string name="app_name">QuizzApp</string>
     <string name="btn_start">Jugar</string>
     <string name="btn_options">Opciones</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="btn_prev">Anterior</string>
+    <string name="numQuestion">Pregunta %1$d de %2$d</string>
+    <string name="result_hint">🐰💡 %1$s</string>
+    <string name="result_ok">Respuesta correcta! :)</string>
+    <string name="result_bad">Respuesta incorrecta! :(</string>
+
+    <!-- Tema: Geografía -->
+    <string name="question_text_1">¿Cuál es la capital de Francia?</string>
+    <string name="option1Q1">París</string>
+    <string name="option2Q1">Marsella</string>
+    <string name="option3Q1">Lyon</string>
+    <string name="option4Q1">Nantes</string>
+
+    <string name="question_text_2">¿Cuál es el océano más grande del mundo?</string>
+    <string name="option1Q2">Pacífico</string>
+    <string name="option2Q2">Atlántico</string>
+    <string name="option3Q2">Índico</string>
+    <string name="option4Q2">Ártico</string>
+
+    <string name="question_text_3">¿En qué continente se encuentra Brasil?</string>
+    <string name="option1Q3">América</string>
+    <string name="option2Q3">Europa</string>
+    <string name="option3Q3">Asia</string>
+    <string name="option4Q3">África</string>
+
+    <string name="question_text_4">¿Qué país tiene la mayor extensión territorial del mundo?</string>
+    <string name="option1Q4">Rusia</string>
+    <string name="option2Q4">Canadá</string>
+    <string name="option3Q4">Estados Unidos</string>
+    <string name="option4Q4">China</string>
+
+    <string name="question_text_5">¿Cuál es el río más largo del mundo?</string>
+    <string name="option1Q5">Nilo</string>
+    <string name="option2Q5">Amazonas</string>
+    <string name="option3Q5">Yangtsé</string>
+    <string name="option4Q5">Misisipi</string>
+
+    <!-- Tema: Historia -->
+    <string name="question_text_6">¿En qué año comenzó la Revolución Francesa?</string>
+    <string name="option1Q6">1789</string>
+    <string name="option2Q6">1776</string>
+    <string name="option3Q6">1804</string>
+    <string name="option4Q6">1812</string>
+
+    <string name="question_text_7">¿Quién fue el primer presidente de los Estados Unidos?</string>
+    <string name="option1Q7">George Washington</string>
+    <string name="option2Q7">Thomas Jefferson</string>
+    <string name="option3Q7">Abraham Lincoln</string>
+    <string name="option4Q7">John Adams</string>
+
+    <string name="question_text_8">¿En qué año cayó el Muro de Berlín?</string>
+    <string name="option1Q8">1989</string>
+    <string name="option2Q8">1991</string>
+    <string name="option3Q8">1987</string>
+    <string name="option4Q8">1990</string>
+
+    <string name="question_text_9">¿Cuál de estas civilizaciones es considerada una de las más antiguas?</string>
+    <string name="option1Q9">La civilización egipcia</string>
+    <string name="option2Q9">La civilización griega</string>
+    <string name="option3Q9">La civilización romana</string>
+    <string name="option4Q9">La civilización maya</string>
+
+    <string name="question_text_10">¿Qué imperio fue conocido por sus conquistas en el siglo XIII?</string>
+    <string name="option1Q10">El Imperio Mongol</string>
+    <string name="option2Q10">El Imperio Romano</string>
+    <string name="option3Q10">El Imperio Persa</string>
+    <string name="option4Q10">El Imperio Otomano</string>
+
+    <!-- Tema: Ciencia -->
+    <string name="question_text_11">¿Cuál es la fórmula química del agua?</string>
+    <string name="option1Q11">H2O</string>
+    <string name="option2Q11">CO2</string>
+    <string name="option3Q11">O2</string>
+    <string name="option4Q11">H2O2</string>
+
+    <string name="question_text_12">¿Qué planeta es conocido como el Planeta Rojo?</string>
+    <string name="option1Q12">Marte</string>
+    <string name="option2Q12">Venus</string>
+    <string name="option3Q12">Júpiter</string>
+    <string name="option4Q12">Saturno</string>
+
+    <string name="question_text_13">¿Qué partícula subatómica tiene carga negativa?</string>
+    <string name="option1Q13">El electrón</string>
+    <string name="option2Q13">El protón</string>
+    <string name="option3Q13">El neutrón</string>
+    <string name="option4Q13">El positrón</string>
+
+    <string name="question_text_14">¿Cuál es el órgano principal del sistema circulatorio?</string>
+    <string name="option1Q14">El corazón</string>
+    <string name="option2Q14">El hígado</string>
+    <string name="option3Q14">Los pulmones</string>
+    <string name="option4Q14">El cerebro</string>
+
+    <string name="question_text_15">¿Qué científico formuló la teoría de la relatividad?</string>
+    <string name="option1Q15">Albert Einstein</string>
+    <string name="option2Q15">Isaac Newton</string>
+    <string name="option3Q15">Galileo Galilei</string>
+    <string name="option4Q15">Nikola Tesla</string>
+
+    <!-- Tema: Literatura -->
+    <string name="question_text_16">¿Quién escribió "Cien años de soledad"?</string>
+    <string name="option1Q16">Gabriel García Márquez</string>
+    <string name="option2Q16">Julio Cortázar</string>
+    <string name="option3Q16">Mario Vargas Llosa</string>
+    <string name="option4Q16">Isabel Allende</string>
+
+    <string name="question_text_17">¿Cuál es la obra más famosa de William Shakespeare?</string>
+    <string name="option1Q17">Hamlet</string>
+    <string name="option2Q17">Macbeth</string>
+    <string name="option3Q17">Romeo y Julieta</string>
+    <string name="option4Q17">Othello</string>
+
+    <string name="question_text_18">¿Qué novela comienza con "En un lugar de la Mancha"?</string>
+    <string name="option1Q18">Don Quijote de la Mancha</string>
+    <string name="option2Q18">La Regenta</string>
+    <string name="option3Q18">Fortunata y Jacinta</string>
+    <string name="option4Q18">La Celestina</string>
+
+    <string name="question_text_19">¿Quién es el autor de "El Principito"?</string>
+    <string name="option1Q19">Antoine de Saint-Exupéry</string>
+    <string name="option2Q19">J.K. Rowling</string>
+    <string name="option3Q19">Ernest Hemingway</string>
+    <string name="option4Q19">George Orwell</string>
+
+    <string name="question_text_20">¿Qué poeta escribió "Romancero Gitano"?</string>
+    <string name="option1Q20">Federico García Lorca</string>
+    <string name="option2Q20">Pablo Neruda</string>
+    <string name="option3Q20">Octavio Paz</string>
+    <string name="option4Q20">Jorge Luis Borges</string>
+
+    <!-- Tema: Deportes -->
+    <string name="question_text_21">¿Cuántas veces ha ganado Brasil la Copa del Mundo (hasta 2022)?</string>
+    <string name="option1Q21">5</string>
+    <string name="option2Q21">4</string>
+    <string name="option3Q21">6</string>
+    <string name="option4Q21">3</string>
+
+    <string name="question_text_22">¿Quién es conocido como "El Rey del Fútbol"?</string>
+    <string name="option1Q22">Pelé</string>
+    <string name="option2Q22">Diego Maradona</string>
+    <string name="option3Q22">Lionel Messi</string>
+    <string name="option4Q22">Cristiano Ronaldo</string>
+
+    <string name="question_text_23">¿Qué deporte se juega en un campo con 18 hoyos?</string>
+    <string name="option1Q23">Golf</string>
+    <string name="option2Q23">Fútbol</string>
+    <string name="option3Q23">Tenis</string>
+    <string name="option4Q23">Cricket</string>
+
+    <string name="question_text_24">¿En qué deporte se utiliza una raqueta y una pelota pequeña en una mesa?</string>
+    <string name="option1Q24">Tenis de mesa</string>
+    <string name="option2Q24">Bádminton</string>
+    <string name="option3Q24">Squash</string>
+    <string name="option4Q24">Fútbol de mesa</string>
+
+    <string name="question_text_25">¿Qué país organizó los Juegos Olímpicos de 2016?</string>
+    <string name="option1Q25">Brasil</string>
+    <string name="option2Q25">China</string>
+    <string name="option3Q25">Reino Unido</string>
+    <string name="option4Q25">Grecia</string>
 </resources>
