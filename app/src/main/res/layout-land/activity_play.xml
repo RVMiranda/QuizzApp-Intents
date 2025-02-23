@@ -141,6 +141,7 @@
             tools:text="C) Opcion" />
 
         <Space
+            android:id="@+id/space_CyD"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5" />

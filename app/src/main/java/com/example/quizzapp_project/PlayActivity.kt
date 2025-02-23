@@ -1,9 +1,12 @@
 package com.example.quizzapp_project
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Space
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -27,6 +30,8 @@ class PlayActivity : AppCompatActivity() {
     private lateinit var optionB : Button
     private lateinit var optionC : Button
     private lateinit var optionD : Button
+
+    private lateinit var spaceCyD : Space
 
     //Botones de navegacion
     private lateinit var prevBtn : Button
@@ -58,6 +63,8 @@ class PlayActivity : AppCompatActivity() {
         optionC = findViewById(R.id.optionC_button)
         optionD = findViewById(R.id.optionD_button)
 
+        spaceCyD = findViewById(R.id.space_CyD)
+
         //Botones de navegacion
         prevBtn = findViewById(R.id.prev_button)
         nextBtn = findViewById(R.id.next_button)
@@ -73,6 +80,11 @@ class PlayActivity : AppCompatActivity() {
         prevBtn.setOnClickListener {
             quizAppModel.prevQuestion()
             actualizarPreguntas()
+        }
+
+        hintsBtn.setOnClickListener { //Pendiente por desarrollar
+            val intent = Intent(this, HintActivity::class.java)
+            startActivity(intent)
         }
 
         optionA.setOnClickListener {
@@ -133,19 +145,76 @@ class PlayActivity : AppCompatActivity() {
         questionText.setText(quizAppModel.currentQuestion.questionId)
         numQuestionText.text = getString(R.string.numQuestion, quizAppModel.CurrentIndex, quizAppModel.TotalQuestions)
 
-        optionA.setText(quizAppModel.currentQuestion.opciones[0].optionId)
-        optionB.setText(quizAppModel.currentQuestion.opciones[1].optionId)
-        optionC.setText(quizAppModel.currentQuestion.opciones[2].optionId)
-        optionD.setText(quizAppModel.currentQuestion.opciones[3].optionId)
+
+        if (quizAppModel.currentQuestion.numOpciones > 1) {
+            optionA.setText(quizAppModel.currentQuestion.opciones[0].optionId)
+            optionB.setText(quizAppModel.currentQuestion.opciones[1].optionId)
+
+            if (quizAppModel.currentQuestion.numOpciones > 2) {
+                optionC.setText(quizAppModel.currentQuestion.opciones[2].optionId)
+
+                if (quizAppModel.currentQuestion.numOpciones > 3) { //Modo Difícil
+                    optionD.setText(quizAppModel.currentQuestion.opciones[3].optionId)
+                }
+                else { //Modo Normal
+                    optionD.visibility = View.GONE
+                    spaceCyD.visibility = View.GONE
+                }
+            }
+            else { //Modo Fácil
+                optionC.visibility = View.GONE
+                optionD.visibility = View.GONE
+            }
+        }
+
+
+
+
+        //Cambia la imagen de la pregunta segun su categoria
+        when(quizAppModel.currentQuestion.Categoria) {
+            // Tema: Geografía   (Categoría 1)
+            1 -> {
+                questionImg.setBackgroundResource(R.drawable.geografia)
+            }
+            // Tema: Historia  (Categoría 2)
+            2 -> {
+                questionImg.setBackgroundResource(R.drawable.historia)
+            }
+            // Tema: Ciencia (Categoría 3)
+            3 -> {
+                questionImg.setBackgroundResource(R.drawable.ciencia)
+            }
+            // Tema: Literatura (Categoría 4)
+            4 -> {
+                questionImg.setBackgroundResource(R.drawable.literatura)
+            }
+            // Tema: Deportes (Categoría 5)
+            5 -> {
+                questionImg.setBackgroundResource(R.drawable.deportes)
+            }
+            else -> {
+                questionImg.setBackgroundResource(R.drawable.astronauta)
+            }
+        }
 
         //Texto de resultado -> Correcto / Incorrecto
         if (quizAppModel.currentQuestion.respondida) {
-            if (quizAppModel.currentQuestion.acierto) {
-                resultText.setText(R.string.result_ok)
+            if (quizAppModel.currentQuestion.acierto) { //Pregunta respondida correctamente
+                if (quizAppModel.currentQuestion.pistaUsada) {
+                    resultText.text = getString(R.string.result_hint, getString(R.string.result_ok)) //Texto para diferenciar si utilizó una pista en la pregunta
+                }
+                else {
+                    resultText.setText(R.string.result_ok)
+                }
                 resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
             }
-            else {
-                resultText.setText(R.string.result_bad)
+            else { //Pregunta respondida incorrectamente
+                if (quizAppModel.currentQuestion.pistaUsada) {
+                    resultText.text = getString(R.string.result_hint, getString(R.string.result_bad))
+                }
+                else {
+                    resultText.setText(R.string.result_bad)
+                }
                 resultText.setTextColor(ContextCompat.getColor(this, R.color.red))
             }
         }
@@ -160,9 +229,15 @@ class PlayActivity : AppCompatActivity() {
         quizAppModel.currentQuestion.acierto = true
 
         //Texto que muestra que fue contestada correctamente
-        resultText.setText(R.string.result_ok)
-        resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
 
+        if (quizAppModel.currentQuestion.pistaUsada) { //Si el usuario uso una pista en la pregunta
+            resultText.text = getString(R.string.result_hint, getString(R.string.result_ok)) //Texto para diferenciar si utilizó una pista en la pregunta
+        }
+        else {
+            resultText.setText(R.string.result_ok) //Si el usuario NO uso una pista
+        }
+
+        resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
         Toast.makeText(this, "Respuesta correcta! :)", Toast.LENGTH_SHORT).show()
     }
 
@@ -172,7 +247,13 @@ class PlayActivity : AppCompatActivity() {
         quizAppModel.currentQuestion.acierto = false
 
         //Texto que muestra que fue contestada correctamente
-        resultText.setText(R.string.result_bad)
+        if (quizAppModel.currentQuestion.pistaUsada) {
+            resultText.text = getString(R.string.result_hint, getString(R.string.result_bad))
+        }
+        else {
+            resultText.setText(R.string.result_bad)
+        }
+
         resultText.setTextColor(ContextCompat.getColor(this, R.color.red))
 
         Toast.makeText(this, "Respuesta incorrecta! :(", Toast.LENGTH_SHORT).show()
