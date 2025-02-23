@@ -5,4 +5,65 @@
     <string name="btn_next">Siguiente</string>
     <string name="btn_prev">Anterior</string>
     <string name="numQuestion">Pregunta 1/10</string>
+
+    <string name="question_text_1">¿Cuál es la capital de España?</string>
+    <string name="option1Q1">Madrid</string>
+    <string name="option2Q1">Barcelona</string>
+    <string name="option3Q1">Valencia</string>
+    <string name="option4Q1">Sevilla</string>
+
+    <string name="question_text_2">¿Cuál es el océano más grande del mundo?</string>
+    <string name="option1Q2">Pacífico</string>
+    <string name="option2Q2">Índico</string>
+    <string name="option3Q2">Atlántico</string>
+    <string name="option4Q2">Ártico</string>
+
+    <string name="question_text_3">¿Quién escribió \\Cien años de soledad\\?</string>
+    <string name="option1Q3">Gabriel García Márquez</string>
+    <string name="option2Q3">Julio Cortázar</string>
+    <string name="option3Q3">Isabel Allende</string>
+    <string name="option4Q3">Mario Vargas Llosa</string>
+
+    <string name="question_text_4">¿En qué año llegó el hombre a la Luna?</string>
+    <string name="option1Q4">1969</string>
+    <string name="option2Q4">1965</string>
+    <string name="option3Q4">1972</string>
+    <string name="option4Q4">1959</string>
+
+    <string name="question_text_5">¿Cuál es el idioma más hablado en el mundo?</string>
+    <string name="option1Q5">Mandarín</string>
+    <string name="option2Q5">Español</string>
+    <string name="option3Q5">Inglés</string>
+    <string name="option4Q5">Hindi</string>
+
+    <string name="question_text_6">¿Qué elemento químico tiene el símbolo "O"?</string>
+    <string name="option1Q6">Oxígeno</string>
+    <string name="option2Q6">Oro</string>
+    <string name="option3Q6">Osmio</string>
+    <string name="option4Q6">Plata</string>
+
+    <string name="question_text_7">¿Quién pintó la Mona Lisa?</string>
+    <string name="option1Q7">Leonardo da Vinci</string>
+    <string name="option2Q7">Pablo Picasso</string>
+    <string name="option3Q7">Vincent van Gogh</string>
+    <string name="option4Q7">Claude Monet</string>
+
+    <string name="question_text_8">¿Cuál es el planeta más cercano al Sol?</string>
+    <string name="option1Q8">Mercurio</string>
+    <string name="option2Q8">Tierra</string>
+    <string name="option3Q8">Venus</string>
+    <string name="option4Q8">Marte</string>
+
+    <string name="question_text_9">¿En qué continente se encuentra Egipto?</string>
+    <string name="option1Q9">África</string>
+    <string name="option2Q9">Asia</string>
+    <string name="option3Q9">Europa</string>
+    <string name="option4Q9">América</string>
+
+    <string name="question_text_10">¿Qué instrumento se utiliza para medir la presión atmosférica?</string>
+    <string name="option1Q10">Barómetro</string>
+    <string name="option2Q10">Termómetro</string>
+    <string name="option3Q10">Higrómetro</string>
+    <string name="option4Q10">Anemómetro</string>
+
 </resources>
