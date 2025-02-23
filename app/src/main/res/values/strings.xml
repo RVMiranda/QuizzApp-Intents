@@ -4,7 +4,9 @@
     <string name="btn_options">Opciones</string>
     <string name="btn_next">Siguiente</string>
     <string name="btn_prev">Anterior</string>
-    <string name="numQuestion">Pregunta 1/10</string>
+    <string name="numQuestion">Pregunta %1$d de %2$d</string>
+    <string name="result_ok">Respuesta correcta! :)</string>
+    <string name="result_bad">Respuesta incorrecta! :(</string>
 
     <string name="question_text_1">¿Cuál es la capital de España?</string>
     <string name="option1Q1">Madrid</string>

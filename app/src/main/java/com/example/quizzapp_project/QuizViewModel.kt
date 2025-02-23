@@ -3,6 +3,7 @@ package com.example.quizzapp_project
 import androidx.lifecycle.ViewModel
 
 class QuizViewModel : ViewModel() {
+    var isFliping = false //Para detectar cuando se voltea la pantalla
     private var currentIndex = 0
     private var DEFAULT_NUM_QUESTIONS = 10 //Cuidar que este numero sea igual o mayor al numero de preguntas en questionBank
     private var questionBank = listOf(
@@ -151,6 +152,12 @@ class QuizViewModel : ViewModel() {
     val currentQuestion: Question
         get() = questionBank[currentIndex]
 
+    val CurrentIndex: Int
+        get() = currentIndex + 1
+
+    val TotalQuestions: Int
+        get() = DEFAULT_NUM_QUESTIONS
+
     fun nextQuestion() {
         currentIndex = (currentIndex + 1) % DEFAULT_NUM_QUESTIONS
     }
@@ -160,6 +167,7 @@ class QuizViewModel : ViewModel() {
     }
 
     init {
+
     }
 
     override fun onCleared() {
