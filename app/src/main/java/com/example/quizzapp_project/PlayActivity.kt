@@ -274,12 +274,11 @@ class PlayActivity : AppCompatActivity() {
         else {
             resultText.setText(R.string.result_ok) //Si el usuario NO uso una pista
             quizAppModel.RachaAciertos = 1
-            Toast.makeText(this, "Respuesta correcta! :) Racha: ${quizAppModel.RachaAciertos} Hints: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
+            if (quizAppModel.RachaAciertos % 2 == 0) Toast.makeText(this, "Haz ganado una Hint! 🐭, Tienes ahora: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
+
         }
 
         resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
-
-
         checkEndGame()
     }
 
@@ -287,6 +286,9 @@ class PlayActivity : AppCompatActivity() {
         //Poner lo que se haria en caso de que sea incorrecta.
         quizAppModel.currentQuestion.respondida = true
         quizAppModel.currentQuestion.acierto = false
+        
+        //Pierde la racha
+        quizAppModel.RachaAciertos = -1
 
         //Texto que muestra que fue contestada correctamente
         if (quizAppModel.currentQuestion.pistaUsada) {
@@ -294,7 +296,6 @@ class PlayActivity : AppCompatActivity() {
         }
         else {
             resultText.setText(R.string.result_bad)
-            quizAppModel.RachaAciertos = -1
         }
 
         resultText.setTextColor(ContextCompat.getColor(this, R.color.red))

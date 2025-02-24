@@ -33,9 +33,9 @@ class QuizViewModel(val Dificultad: Int, val NUMPistas: Int) : ViewModel() {
             if (value < 0) {
                 rachaAciertos = 0
             }
-            else { //Si recibe un numero mayor a 0 se le suma 1 a la racha
+            else { //Si recibe un numero mayor a 0 se le suma uno a la racha
                 rachaAciertos++
-                if (rachaAciertos % 2 == 0) {
+                if (rachaAciertos % 2 == 0) { //Si tiene 2 buenas seguidas se bonifica con una hint.
                     NUM_HINTS++
                 }
             }
