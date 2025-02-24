@@ -6,4 +6,5 @@
     <color name="red">#BF4242</color>
     <color name="ColorOpcion">#3F51B5</color>
     <color name="ColorOpcionS">#00BCD4</color>
+    <color name="WrongOption">#681B1B</color>
 </resources>

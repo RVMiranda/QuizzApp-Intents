@@ -27,4 +27,20 @@ data class Question(var Categoria:Int, @StringRes val questionId: Int, var numOp
     fun ShuffleOptions() {
         opciones = opciones.shuffled()
     }
+
+    fun deshabiliteWrongOption(): Int {
+        val auxList = opciones.toMutableList()
+        val index = auxList.indexOfFirst { !it.esCorrecta && !it.deshabilitado } // Encuentra el índice de la primera opción incorrecta
+
+        if (index != -1) { // Si encontró una opción incorrecta
+            auxList[index].deshabilitado = true // Elimina la opción en ese índice
+            opciones = auxList.toList() // Convierte de nuevo a lista inmutable
+
+            val aux = auxList.indexOfFirst { !it.esCorrecta && !it.deshabilitado }
+            if (aux != -1) return 1 //Quiere decir que aun hay una opcion incorrecta no marcada
+            else return 2 //Quiere decir que contesto con la hint la pregunta
+        }
+        return 0 //Quiere decir que no encontro opcion
+    }
+
 }

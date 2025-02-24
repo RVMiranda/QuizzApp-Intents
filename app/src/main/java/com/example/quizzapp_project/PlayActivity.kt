@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -102,18 +103,22 @@ class PlayActivity : AppCompatActivity() {
         }
 
         hintsBtn.setOnClickListener { //Pendiente por desarrollar
-            val intent = Intent(this, HintActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, HintActivity::class.java)
+//            startActivity(intent)
+            mostrarDialogoHints()
         }
 
         optionA.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[0].esCorrecta) {
-                    preguntaCorrecta()
+                if (!quizAppModel.currentQuestion.opciones[0].deshabilitado) { //Si no ha sido descartada por una hint
+                    if (quizAppModel.currentQuestion.opciones[0].esCorrecta) {
+                        preguntaCorrecta()
+                    }
+                    else {
+                        preguntaIncorrecta()
+                    }
                 }
-                else {
-                    preguntaIncorrecta()
-                }
+                else Toast.makeText(this, "Esta respuesta no es chaval 🐰", Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
@@ -121,12 +126,14 @@ class PlayActivity : AppCompatActivity() {
         }
         optionB.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[1].esCorrecta) {
-                    preguntaCorrecta()
+                if (!quizAppModel.currentQuestion.opciones[1].deshabilitado) {
+                    if (quizAppModel.currentQuestion.opciones[1].esCorrecta) {
+                        preguntaCorrecta()
+                    } else {
+                        preguntaIncorrecta()
+                    }
                 }
-                else {
-                    preguntaIncorrecta()
-                }
+                else Toast.makeText(this, "Esta respuesta no es chaval 🐰", Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
@@ -134,12 +141,14 @@ class PlayActivity : AppCompatActivity() {
         }
         optionC.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[2].esCorrecta) {
-                    preguntaCorrecta()
+                if (!quizAppModel.currentQuestion.opciones[2].deshabilitado) {
+                    if (quizAppModel.currentQuestion.opciones[2].esCorrecta) {
+                        preguntaCorrecta()
+                    } else {
+                        preguntaIncorrecta()
+                    }
                 }
-                else {
-                    preguntaIncorrecta()
-                }
+                else Toast.makeText(this, "Esta respuesta no es chaval 🐰", Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
@@ -147,12 +156,14 @@ class PlayActivity : AppCompatActivity() {
         }
         optionD.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[3].esCorrecta) {
-                    preguntaCorrecta()
+                if (!quizAppModel.currentQuestion.opciones[2].deshabilitado) {
+                    if (quizAppModel.currentQuestion.opciones[3].esCorrecta) {
+                        preguntaCorrecta()
+                    } else {
+                        preguntaIncorrecta()
+                    }
                 }
-                else {
-                    preguntaIncorrecta()
-                }
+                else Toast.makeText(this, "Esta respuesta no es chaval 🐰", Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
@@ -166,14 +177,22 @@ class PlayActivity : AppCompatActivity() {
 
 
         if (quizAppModel.currentQuestion.numOpciones > 1) {
+            if (quizAppModel.currentQuestion.opciones[0].deshabilitado) optionA.setBackgroundColor(this.getColor(R.color.WrongOption))
+            else optionA.setBackgroundColor(this.getColor(R.color.ColorOpcion))
+
+            if (quizAppModel.currentQuestion.opciones[1].deshabilitado) optionB.setBackgroundColor(this.getColor(R.color.WrongOption))
+            else optionB.setBackgroundColor(this.getColor(R.color.ColorOpcion))
             optionA.setText(quizAppModel.currentQuestion.opciones[0].optionId)
             optionB.setText(quizAppModel.currentQuestion.opciones[1].optionId)
 
             if (quizAppModel.currentQuestion.numOpciones > 2) {
                 optionC.setText(quizAppModel.currentQuestion.opciones[2].optionId)
-
+                if (quizAppModel.currentQuestion.opciones[2].deshabilitado) optionC.setBackgroundColor(this.getColor(R.color.WrongOption))
+                else optionC.setBackgroundColor(this.getColor(R.color.ColorOpcion))
                 if (quizAppModel.currentQuestion.numOpciones > 3) { //Modo Difícil
                     optionD.setText(quizAppModel.currentQuestion.opciones[3].optionId)
+                    if (quizAppModel.currentQuestion.opciones[3].deshabilitado) optionD.setBackgroundColor(this.getColor(R.color.WrongOption))
+                    else optionD.setBackgroundColor(this.getColor(R.color.ColorOpcion))
                 }
                 else { //Modo Normal
                     optionD.visibility = View.GONE
@@ -285,14 +304,59 @@ class PlayActivity : AppCompatActivity() {
         checkEndGame()
     }
 
+    private fun mostrarDialogoHints() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Pistas 💡")
+        builder.setMessage("¿Estás seguro de usar una pista?")
+
+        // Botón "Sí"
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            // Acción cuando el usuario presiona "Sí"
+            if (!quizAppModel.currentQuestion.respondida) {
+                val aux = quizAppModel.useHint()
+                actualizarPreguntas()
+                if (aux == 1) Toast.makeText(
+                    this,
+                    "Pistas restantes: ${quizAppModel.NumHints}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                else if (aux == 2) Toast.makeText(
+                    this,
+                    "Pregunta respondida con pistas, Pistas restantes: ${quizAppModel.NumHints}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                else Toast.makeText(
+                    this,
+                    "No tienes pistas! :(",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else Toast.makeText(this, "No puedes usar una pista en una pregunta respondida!", Toast.LENGTH_SHORT).show()
+            dialog.dismiss() // Cierra el diálogo
+        }
+
+        // Botón "No"
+        builder.setNegativeButton("No") { dialog, _ ->
+            // Acción cuando el usuario presiona "No"
+            Toast.makeText(this, "Bien hecho 😊", Toast.LENGTH_SHORT).show()
+            dialog.dismiss() // Cierra el diálogo
+        }
+
+        // Mostrar el diálogo
+        builder.show()
+    }
+
     private fun checkEndGame() {
-        if (quizAppModel.CurrentIndex >= 10) { // Si se han respondido 10 preguntas
+        if (quizAppModel.getAnsweredCount() >= quizAppModel.NumQuestions) {
             val intent = Intent(this, EndingActivity::class.java).apply {
                 putExtra("CORRECT_ANSWERS", quizAppModel.getCorrectAnswersCount())
                 putExtra("INCORRECT_ANSWERS", quizAppModel.getIncorrectAnswersCount())
+                putExtra("USED_HINTS", quizAppModel.getHintUsedCount())
+                putExtra("NUM_HINTS", quizAppModel.NumHints)
+                putExtra("DIFFICULT", quizAppModel.NumOpciones)
             }
             startActivity(intent)
-            finish() // Cierra la actividad actual
+            finish()
         }
     }
 

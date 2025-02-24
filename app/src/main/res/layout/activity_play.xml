@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@color/white"
         android:textSize="24sp"
         tools:text="Aqui debe ir el texto de la pregunta" />
 
@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/ColorOpcion"
             android:padding="10dp"
+            android:textColor="@color/white"
             android:textSize="16sp"
             tools:text="A) Opcion" />
 
@@ -95,6 +96,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/ColorOpcion"
             android:padding="10dp"
+            android:textColor="@color/white"
             android:textSize="16sp"
             tools:text="B) Opcion" />
 
@@ -123,6 +125,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/ColorOpcion"
             android:padding="10dp"
+            android:textColor="@color/white"
             android:textSize="16sp"
             tools:text="C) Opcion" />
 
@@ -138,6 +141,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/ColorOpcion"
             android:padding="10dp"
+            android:textColor="@color/white"
             android:textSize="16sp"
             tools:text="D) Opcion" />
 
