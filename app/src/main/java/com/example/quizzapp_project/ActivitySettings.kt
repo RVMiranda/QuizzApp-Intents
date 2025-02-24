@@ -41,24 +41,12 @@ class ActivitySettings : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val dificultadSeleccionada = parent?.getItemAtPosition(position).toString()
                 editor.putString("DIFICULTAD", dificultadSeleccionada)
-
-                val hints = when (dificultadSeleccionada) {
-                    "FÁCIL" -> if (numHintsGuardado > 0) numHintsGuardado else 3
-                    "NORMAL" -> if (numHintsGuardado > 0) numHintsGuardado else 2
-                    "DIFÍCIL" -> if (numHintsGuardado > 0) numHintsGuardado else 1
-                    else -> 0
-                }
-
-                sliderPistas.value = hints.toFloat()
-                editor.putInt("NUM_HINTS", hints) // Guardar pistas
                 editor.apply()
-
-                // ✅ Mostrar mensaje con la cantidad de pistas asignadas
-                Toast.makeText(this@ActivitySettings, getString(R.string.hints_assigned, hints), Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
 
         // 🔹 Guardar el valor del slider cuando el usuario lo modifique manualmente
         sliderPistas.addOnChangeListener { _, value, _ ->
