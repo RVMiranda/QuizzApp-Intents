@@ -8,6 +8,15 @@
     <string name="result_hint">🐰💡 %1$s</string>
     <string name="result_ok">Respuesta correcta! :)</string>
     <string name="result_bad">Respuesta incorrecta! :(</string>
+    <string name="hints_available">Tienes %d pistas disponibles</string>
+    <string name="hints_assigned">Pistas asignadas: %d</string>
+    <string name="hints_count">Número de pistas: %d</string>
+
+    <string-array name="Dificultades">
+        <item>FÁCIL</item>
+        <item>NORMAL</item>
+        <item>DIFÍCIL</item>
+    </string-array>
 
     <!-- Tema: Geografía -->
     <string name="question_text_1">¿Cuál es la capital de Francia?</string>

@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 
-data class Question(var Categoria:Int, @StringRes val questionId: Int, var numOpciones: Int, var opciones: List<Option>, var respondida: Boolean, var acierto: Boolean, var pistaUsada: Boolean) {
+data class Question(var Categoria:Int, @StringRes val questionId: Int, var numOpciones: Int, var opciones: List<Option>, var respondida: Boolean, var acierto: Boolean, var pistaUsada: Boolean, var OpcionSeleccionada: Int) {
 
     init {
         // Obtener la opción correcta; si no existe, lanza una excepción
@@ -23,8 +23,6 @@ data class Question(var Categoria:Int, @StringRes val questionId: Int, var numOp
         // Combinar la opción correcta con las incorrectas seleccionadas y barajar el resultado final
         opciones = (listOf(opcionCorrecta) + seleccionadasIncorrectas).shuffled()
     }
-
-
 
     fun ShuffleOptions() {
         opciones = opciones.shuffled()

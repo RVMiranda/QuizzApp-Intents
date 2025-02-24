@@ -2,14 +2,74 @@ package com.example.quizzapp_project
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.lifecycle.ViewModel
 
-class QuizViewModel : ViewModel() {
+class QuizViewModel(val Dificultad: Int, val NUMPistas: Int) : ViewModel() {
     var isFliping = false //Para detectar cuando se voltea la pantalla
     private var currentIndex = 0
     private var DEFAULT_NUM_QUESTIONS = 10 //Cuidar que este numero sea igual o mayor al numero de preguntas en questionBank
-    private var NUM_OPTIONS = 4 //Numero de opciones minimo 2 maximo 4 (facil=2, normal=3 y dificil=4)
-    private var NUM_HINTS = 3 //PENDIENTE Por desarrollar
+    private var NUM_OPTIONS = 3 //Numero de opciones minimo 2 maximo 4 (facil=2, normal=3 y dificil=4)
+
+    private var rachaAciertos = 0
+
+    var PRUEBA_D = 0
+    var PRUEBA_H = 0
+
+    //Para calcular su puntuación final.
+    private var NUM_HINTS = 3
+    var hintsUsados = 0
+    var numAciertos = 0
+    var numFallas = 0
+
+    var NumOpciones: Int
+        get() = NUM_OPTIONS
+        set(value) {
+            if (value < 2) NUM_OPTIONS = 2
+            else if (value > 4) NUM_OPTIONS = 4
+            else NUM_OPTIONS = value
+        }
+
+    var RachaAciertos: Int
+        get() = rachaAciertos
+        set(value) { //Si recibe -1 se reinicia la racha
+            if (value < 0) {
+                rachaAciertos = 0
+            }
+            else { //Si recibe un numero mayor a 0 se le suma 1 a la racha
+                rachaAciertos++
+                if (rachaAciertos % 2 == 0) {
+                    NUM_HINTS++
+                }
+            }
+        }
+
+    var NumHints: Int
+        get() = NUM_HINTS
+        set(value: Int) {
+            if (value >= 0) {
+                NUM_HINTS = value
+            }
+            else {
+                NUM_HINTS = 0
+            }
+        }
+
+    val currentQuestion: Question
+        get() = questionBank[currentIndex]
+
+    val CurrentIndex: Int
+        get() = currentIndex + 1
+
+    val TotalQuestions: Int
+        get() = DEFAULT_NUM_QUESTIONS
+
+    init {
+        NUM_OPTIONS = Dificultad
+        NUM_HINTS = NUMPistas
+        PRUEBA_D = Dificultad
+        PRUEBA_H = NUMPistas
+    }
 
     //Actualmente 25 preguntas en total de 5 temas diferentes
     private var questionBank = listOf(
@@ -26,7 +86,8 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,
+            -1
         ),
         Question(
             1,
@@ -40,7 +101,8 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,
+            -1
         ),
         Question(
             1,
@@ -54,7 +116,8 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,
+            -1
         ),
         Question(
             1,
@@ -68,7 +131,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             1,
@@ -82,7 +145,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         // Tema: Historia  (Categoría 2)
         Question(
@@ -97,7 +160,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             2,
@@ -111,7 +174,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             2,
@@ -125,7 +188,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             2,
@@ -139,7 +202,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             2,
@@ -153,7 +216,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         // Tema: Ciencia (Categoría 3)
         Question(
@@ -168,7 +231,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             3,
@@ -182,7 +245,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             3,
@@ -196,7 +259,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             3,
@@ -210,7 +273,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             3,
@@ -224,7 +287,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
 
         // Tema: Literatura (Categoría 4)
@@ -240,7 +303,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             4,
@@ -254,7 +317,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             4,
@@ -268,7 +331,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             4,
@@ -282,7 +345,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             4,
@@ -296,7 +359,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
 
         // Tema: Deportes (Categoría 5)
@@ -312,7 +375,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             5,
@@ -326,7 +389,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             5,
@@ -340,7 +403,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             5,
@@ -354,7 +417,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         ),
         Question(
             5,
@@ -368,7 +431,7 @@ class QuizViewModel : ViewModel() {
             ),
             false,
             false,
-            false
+            false,-1
         )
     )
 
@@ -377,19 +440,9 @@ class QuizViewModel : ViewModel() {
         for (question in questionBank) {
             question.ShuffleOptions()
         }
-
         //Mezcla las preguntas despues que sus opciones fueran mezcladas
         questionBank = questionBank.shuffled()
     }
-
-    val currentQuestion: Question
-        get() = questionBank[currentIndex]
-
-    val CurrentIndex: Int
-        get() = currentIndex + 1
-
-    val TotalQuestions: Int
-        get() = DEFAULT_NUM_QUESTIONS
 
     fun nextQuestion() {
         currentIndex = (currentIndex + 1) % DEFAULT_NUM_QUESTIONS
@@ -408,9 +461,7 @@ class QuizViewModel : ViewModel() {
     }
 
 
-    init {
 
-    }
 
     override fun onCleared() {
         super.onCleared()

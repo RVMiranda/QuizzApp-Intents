@@ -15,9 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 
 class PlayActivity : AppCompatActivity() {
-    private val quizAppModel: QuizViewModel by viewModels()
+    private lateinit var quizAppModel: QuizViewModel
 
     private lateinit var hintsBtn : Button
     private lateinit var numQuestionText : TextView
@@ -41,6 +42,23 @@ class PlayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
 
+        val prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE)
+        val dificultad_str = prefs.getString("DIFICULTAD", "NORMAL") ?: "NORMAL"
+        val NumHints = prefs.getInt("NUM_HINTS", 2) ?: 2
+        var dificultad = 2
+
+        when (dificultad_str) {
+            "FÁCIL" -> dificultad = 2
+            "NORMAL" -> dificultad = 3
+            "DIFÍCIL" -> dificultad = 4
+            else -> dificultad = 3
+        }
+
+        // Crear el Factory con los valores obtenidos
+        val factory = QuizViewModelFactory(dificultad, NumHints)
+        // Inicializar el ViewModel usando ViewModelProvider con el Factory
+        quizAppModel = ViewModelProvider(this, factory).get(QuizViewModel::class.java)
+
         //Verifica si se crea el activity por un cambio de pantalla o porque el usuario le dio Start
         if (!quizAppModel.isFliping) {
             //No es un cambio de pantalla mezcla las preguntas y sus opciones
@@ -50,6 +68,7 @@ class PlayActivity : AppCompatActivity() {
             //Es un cambio de pantalla no revuelve las preguntas
             quizAppModel.isFliping = false
         }
+        Toast.makeText(this, "Numero de pistas: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
 
         hintsBtn = findViewById(R.id.hint_button) //Boton de pistas
         numQuestionText = findViewById(R.id.numQuestion_text) //Texto de pregunta actual (1/10)
@@ -235,10 +254,12 @@ class PlayActivity : AppCompatActivity() {
         }
         else {
             resultText.setText(R.string.result_ok) //Si el usuario NO uso una pista
+            quizAppModel.RachaAciertos = 1
+            Toast.makeText(this, "Respuesta correcta! :) Racha: ${quizAppModel.RachaAciertos} Hints: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
         }
 
         resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
-        Toast.makeText(this, "Respuesta correcta! :)", Toast.LENGTH_SHORT).show()
+
 
         checkEndGame()
     }
@@ -254,6 +275,7 @@ class PlayActivity : AppCompatActivity() {
         }
         else {
             resultText.setText(R.string.result_bad)
+            quizAppModel.RachaAciertos = -1
         }
 
         resultText.setTextColor(ContextCompat.getColor(this, R.color.red))
@@ -281,5 +303,4 @@ class PlayActivity : AppCompatActivity() {
         }
         super.onDestroy()
     }
-
 }
