@@ -163,4 +163,16 @@
     <string name="option2Q25">China</string>
     <string name="option3Q25">Reino Unido</string>
     <string name="option4Q25">Grecia</string>
+
+    <string-array name="Dificultades">
+        <item>FÁCIL</item>
+        <item>NORMAL</item>
+        <item>DIFÍCIL</item>
+    </string-array>
+
+    <string name="hints_available">Tienes %d pistas disponibles</string>
+
+    <string name="hints_assigned">Pistas asignadas: %d</string>
+    <string name="hints_count">Número de pistas: %d</string>
+
 </resources>

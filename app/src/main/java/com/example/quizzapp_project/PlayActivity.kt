@@ -41,6 +41,11 @@ class PlayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
 
+        val prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE)
+        val dificultad = prefs.getString("DIFICULTAD", "NORMAL") ?: "NORMAL"
+
+        Toast.makeText(this, "Dificultad: $dificultad", Toast.LENGTH_SHORT).show()
+
         //Verifica si se crea el activity por un cambio de pantalla o porque el usuario le dio Start
         if (!quizAppModel.isFliping) {
             //No es un cambio de pantalla mezcla las preguntas y sus opciones
@@ -72,6 +77,12 @@ class PlayActivity : AppCompatActivity() {
         //Setup de la primera pregunta y sus opciones
         actualizarPreguntas()
 
+        optionA.setOnClickListener { validarRespuesta(0) }
+        optionB.setOnClickListener { validarRespuesta(1) }
+        optionC.setOnClickListener { if (opcionesMostradas.size > 2) validarRespuesta(2) }
+        optionD.setOnClickListener { if (opcionesMostradas.size > 3) validarRespuesta(3) }
+
+
         nextBtn.setOnClickListener {
             quizAppModel.nextQuestion()
             actualizarPreguntas()
@@ -87,141 +98,160 @@ class PlayActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        optionA.setOnClickListener {
-            if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[0].esCorrecta) {
-                    preguntaCorrecta()
-                }
-                else {
-                    preguntaIncorrecta()
-                }
-            }
-            else {
-                Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
-            }
-        }
-        optionB.setOnClickListener {
-            if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[1].esCorrecta) {
-                    preguntaCorrecta()
-                }
-                else {
-                    preguntaIncorrecta()
-                }
-            }
-            else {
-                Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
-            }
-        }
-        optionC.setOnClickListener {
-            if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[2].esCorrecta) {
-                    preguntaCorrecta()
-                }
-                else {
-                    preguntaIncorrecta()
-                }
-            }
-            else {
-                Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
-            }
-        }
-        optionD.setOnClickListener {
-            if (!quizAppModel.currentQuestion.respondida) {
-                if (quizAppModel.currentQuestion.opciones[3].esCorrecta) {
-                    preguntaCorrecta()
-                }
-                else {
-                    preguntaIncorrecta()
-                }
-            }
-            else {
-                Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
-            }
-        }
+
     }
+
+//    private fun actualizarPreguntas() {
+//        questionText.setText(quizAppModel.currentQuestion.questionId)
+//        numQuestionText.text = getString(R.string.numQuestion, quizAppModel.CurrentIndex, quizAppModel.TotalQuestions)
+//
+//
+//        if (quizAppModel.currentQuestion.numOpciones > 1) {
+//            optionA.setText(quizAppModel.currentQuestion.opciones[0].optionId)
+//            optionB.setText(quizAppModel.currentQuestion.opciones[1].optionId)
+//
+//            if (quizAppModel.currentQuestion.numOpciones > 2) {
+//                optionC.setText(quizAppModel.currentQuestion.opciones[2].optionId)
+//
+//                if (quizAppModel.currentQuestion.numOpciones > 3) { //Modo Difícil
+//                    optionD.setText(quizAppModel.currentQuestion.opciones[3].optionId)
+//                }
+//                else { //Modo Normal
+//                    optionD.visibility = View.GONE
+//                    spaceCyD.visibility = View.GONE
+//                }
+//            }
+//            else { //Modo Fácil
+//                optionC.visibility = View.GONE
+//                optionD.visibility = View.GONE
+//            }
+//        }
+//
+//
+//
+//
+//        //Cambia la imagen de la pregunta segun su categoria
+//        when(quizAppModel.currentQuestion.Categoria) {
+//            // Tema: Geografía   (Categoría 1)
+//            1 -> {
+//                questionImg.setBackgroundResource(R.drawable.geografia)
+//            }
+//            // Tema: Historia  (Categoría 2)
+//            2 -> {
+//                questionImg.setBackgroundResource(R.drawable.historia)
+//            }
+//            // Tema: Ciencia (Categoría 3)
+//            3 -> {
+//                questionImg.setBackgroundResource(R.drawable.ciencia)
+//            }
+//            // Tema: Literatura (Categoría 4)
+//            4 -> {
+//                questionImg.setBackgroundResource(R.drawable.literatura)
+//            }
+//            // Tema: Deportes (Categoría 5)
+//            5 -> {
+//                questionImg.setBackgroundResource(R.drawable.deportes)
+//            }
+//            else -> {
+//                questionImg.setBackgroundResource(R.drawable.astronauta)
+//            }
+//        }
+//
+//        //Texto de resultado -> Correcto / Incorrecto
+//        if (quizAppModel.currentQuestion.respondida) {
+//            if (quizAppModel.currentQuestion.acierto) { //Pregunta respondida correctamente
+//                if (quizAppModel.currentQuestion.pistaUsada) {
+//                    resultText.text = getString(R.string.result_hint, getString(R.string.result_ok)) //Texto para diferenciar si utilizó una pista en la pregunta
+//                }
+//                else {
+//                    resultText.setText(R.string.result_ok)
+//                }
+//                resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
+//            }
+//            else { //Pregunta respondida incorrectamente
+//                if (quizAppModel.currentQuestion.pistaUsada) {
+//                    resultText.text = getString(R.string.result_hint, getString(R.string.result_bad))
+//                }
+//                else {
+//                    resultText.setText(R.string.result_bad)
+//                }
+//                resultText.setTextColor(ContextCompat.getColor(this, R.color.red))
+//            }
+//        }
+//        else {
+//            resultText.text = ""
+//        }
+//    }
+
+    private var opcionesMostradas: List<Option> = emptyList()
 
     private fun actualizarPreguntas() {
         questionText.setText(quizAppModel.currentQuestion.questionId)
         numQuestionText.text = getString(R.string.numQuestion, quizAppModel.CurrentIndex, quizAppModel.TotalQuestions)
 
+        val prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE)
+        val dificultad = prefs.getString("DIFICULTAD", "NORMAL") ?: "NORMAL"
 
-        if (quizAppModel.currentQuestion.numOpciones > 1) {
-            optionA.setText(quizAppModel.currentQuestion.opciones[0].optionId)
-            optionB.setText(quizAppModel.currentQuestion.opciones[1].optionId)
+        val todasLasOpciones = quizAppModel.currentQuestion.opciones.toMutableList()
+        val opcionCorrecta = todasLasOpciones.find { it.esCorrecta } ?: todasLasOpciones[0]
 
-            if (quizAppModel.currentQuestion.numOpciones > 2) {
-                optionC.setText(quizAppModel.currentQuestion.opciones[2].optionId)
+        opcionesMostradas = when (dificultad) {
+            "FÁCIL" -> {
+                val incorrectas = todasLasOpciones.filter { !it.esCorrecta }.shuffled().take(1)
+                listOf(opcionCorrecta) + incorrectas
+            }
+            "NORMAL" -> {
+                val incorrectas = todasLasOpciones.filter { !it.esCorrecta }.shuffled().take(2)
+                listOf(opcionCorrecta) + incorrectas
+            }
+            "DIFÍCIL" -> todasLasOpciones
+            else -> todasLasOpciones
+        }.shuffled()
 
-                if (quizAppModel.currentQuestion.numOpciones > 3) { //Modo Difícil
-                    optionD.setText(quizAppModel.currentQuestion.opciones[3].optionId)
-                }
-                else { //Modo Normal
-                    optionD.visibility = View.GONE
-                    spaceCyD.visibility = View.GONE
-                }
-            }
-            else { //Modo Fácil
-                optionC.visibility = View.GONE
-                optionD.visibility = View.GONE
-            }
-        }
-
-
-
-
-        //Cambia la imagen de la pregunta segun su categoria
-        when(quizAppModel.currentQuestion.Categoria) {
-            // Tema: Geografía   (Categoría 1)
-            1 -> {
-                questionImg.setBackgroundResource(R.drawable.geografia)
-            }
-            // Tema: Historia  (Categoría 2)
-            2 -> {
-                questionImg.setBackgroundResource(R.drawable.historia)
-            }
-            // Tema: Ciencia (Categoría 3)
-            3 -> {
-                questionImg.setBackgroundResource(R.drawable.ciencia)
-            }
-            // Tema: Literatura (Categoría 4)
-            4 -> {
-                questionImg.setBackgroundResource(R.drawable.literatura)
-            }
-            // Tema: Deportes (Categoría 5)
-            5 -> {
-                questionImg.setBackgroundResource(R.drawable.deportes)
-            }
-            else -> {
-                questionImg.setBackgroundResource(R.drawable.astronauta)
-            }
-        }
-
-        //Texto de resultado -> Correcto / Incorrecto
-        if (quizAppModel.currentQuestion.respondida) {
-            if (quizAppModel.currentQuestion.acierto) { //Pregunta respondida correctamente
-                if (quizAppModel.currentQuestion.pistaUsada) {
-                    resultText.text = getString(R.string.result_hint, getString(R.string.result_ok)) //Texto para diferenciar si utilizó una pista en la pregunta
-                }
-                else {
-                    resultText.setText(R.string.result_ok)
-                }
+        // ✅ Limpiar el resultado si la pregunta aún no ha sido respondida
+        if (!quizAppModel.currentQuestion.respondida) {
+            resultText.text = ""
+        } else {
+            // ✅ Si la pregunta ya fue respondida, mostrar si fue correcta o incorrecta
+            if (quizAppModel.currentQuestion.acierto) {
+                resultText.setText(R.string.result_ok)
                 resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
-            }
-            else { //Pregunta respondida incorrectamente
-                if (quizAppModel.currentQuestion.pistaUsada) {
-                    resultText.text = getString(R.string.result_hint, getString(R.string.result_bad))
-                }
-                else {
-                    resultText.setText(R.string.result_bad)
-                }
+            } else {
+                resultText.setText(R.string.result_bad)
                 resultText.setTextColor(ContextCompat.getColor(this, R.color.red))
             }
         }
-        else {
-            resultText.text = ""
+
+        // Asignar opciones a botones y ocultar las que no se usan
+        optionA.setText(opcionesMostradas[0].optionId)
+        optionB.setText(opcionesMostradas[1].optionId)
+        optionA.visibility = View.VISIBLE
+        optionB.visibility = View.VISIBLE
+
+        if (opcionesMostradas.size > 2) {
+            optionC.setText(opcionesMostradas[2].optionId)
+            optionC.visibility = View.VISIBLE
+        } else {
+            optionC.visibility = View.GONE
+        }
+
+        if (opcionesMostradas.size > 3) {
+            optionD.setText(opcionesMostradas[3].optionId)
+            optionD.visibility = View.VISIBLE
+        } else {
+            optionD.visibility = View.GONE
+        }
+
+        when (quizAppModel.currentQuestion.Categoria) {
+            1 -> questionImg.setBackgroundResource(R.drawable.geografia)
+            2 -> questionImg.setBackgroundResource(R.drawable.historia)
+            3 -> questionImg.setBackgroundResource(R.drawable.ciencia)
+            4 -> questionImg.setBackgroundResource(R.drawable.literatura)
+            5 -> questionImg.setBackgroundResource(R.drawable.deportes)
+            else -> questionImg.setBackgroundResource(R.drawable.astronauta)
         }
     }
+
 
     private fun preguntaCorrecta() {
         //Poner lo que se haria en caso de que sea correcta.
@@ -266,5 +296,25 @@ class PlayActivity : AppCompatActivity() {
         }
         super.onDestroy()
     }
+
+    private fun validarRespuesta(index: Int) {
+        if (!quizAppModel.currentQuestion.respondida) {
+            if (index >= 0 && index < opcionesMostradas.size) { // Asegurar que el índice es válido
+                val opcionSeleccionada = opcionesMostradas[index] // Tomar la opción desde las mostradas en pantalla
+                if (opcionSeleccionada.esCorrecta) {
+                    preguntaCorrecta()
+                } else {
+                    preguntaIncorrecta()
+                }
+            } else {
+                Toast.makeText(this, "Error: Índice fuera de rango.", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "Esta pregunta ya ha sido respondida!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
 
 }
