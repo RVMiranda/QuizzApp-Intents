@@ -241,6 +241,15 @@ class PlayActivity : AppCompatActivity() {
         } else {
             optionD.visibility = View.GONE
         }
+
+        when (quizAppModel.currentQuestion.Categoria) {
+            1 -> questionImg.setBackgroundResource(R.drawable.geografia)
+            2 -> questionImg.setBackgroundResource(R.drawable.historia)
+            3 -> questionImg.setBackgroundResource(R.drawable.ciencia)
+            4 -> questionImg.setBackgroundResource(R.drawable.literatura)
+            5 -> questionImg.setBackgroundResource(R.drawable.deportes)
+            else -> questionImg.setBackgroundResource(R.drawable.astronauta)
+        }
     }
 
 
