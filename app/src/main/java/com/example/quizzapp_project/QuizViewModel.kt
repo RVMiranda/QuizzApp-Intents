@@ -399,6 +399,15 @@ class QuizViewModel : ViewModel() {
         currentIndex = (currentIndex - 1 + DEFAULT_NUM_QUESTIONS) % DEFAULT_NUM_QUESTIONS
     }
 
+    fun getCorrectAnswersCount(): Int {
+        return questionBank.count { it.respondida && it.acierto }
+    }
+
+    fun getIncorrectAnswersCount(): Int {
+        return questionBank.count { it.respondida && !it.acierto }
+    }
+
+
     init {
 
     }

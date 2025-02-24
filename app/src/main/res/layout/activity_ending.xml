@@ -9,8 +9,80 @@
     android:gravity="center"
     tools:context=".PlayActivity">
 
+    <ImageView
+        android:id="@+id/result_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/celebrate"
+        android:contentDescription="Resultado"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/final_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Tu puntuación final es:"/>
+
+    <TextView
+        android:id="@+id/score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Puntuación"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/restart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reiniciar Quiz"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Este es el activity del final del juego"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Estadísticas de la partida:"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/puntuacion_pregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Puntuación por preguntas correctas:"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/penalizacion_pista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Pistas utilizadas:"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/bonificacion_pista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Bonificación por pista:"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/puntuacion_final"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Puntuación final:"
+        android:layout_marginBottom="10dp"/>
+
 </LinearLayout>

@@ -239,6 +239,8 @@ class PlayActivity : AppCompatActivity() {
 
         resultText.setTextColor(ContextCompat.getColor(this, R.color.green))
         Toast.makeText(this, "Respuesta correcta! :)", Toast.LENGTH_SHORT).show()
+
+        checkEndGame()
     }
 
     private fun preguntaIncorrecta() {
@@ -257,6 +259,19 @@ class PlayActivity : AppCompatActivity() {
         resultText.setTextColor(ContextCompat.getColor(this, R.color.red))
 
         Toast.makeText(this, "Respuesta incorrecta! :(", Toast.LENGTH_SHORT).show()
+
+        checkEndGame()
+    }
+
+    private fun checkEndGame() {
+        if (quizAppModel.CurrentIndex >= 10) { // Si se han respondido 10 preguntas
+            val intent = Intent(this, EndingActivity::class.java).apply {
+                putExtra("CORRECT_ANSWERS", quizAppModel.getCorrectAnswersCount())
+                putExtra("INCORRECT_ANSWERS", quizAppModel.getIncorrectAnswersCount())
+            }
+            startActivity(intent)
+            finish() // Cierra la actividad actual
+        }
     }
 
     override fun onDestroy() {
