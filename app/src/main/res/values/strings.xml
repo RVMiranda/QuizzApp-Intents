@@ -170,4 +170,9 @@
         <item>DIFÍCIL</item>
     </string-array>
 
+    <string name="hints_available">Tienes %d pistas disponibles</string>
+
+    <string name="hints_assigned">Pistas asignadas: %d</string>
+    <string name="hints_count">Número de pistas: %d</string>
+
 </resources>

@@ -13,4 +13,13 @@
         android:layout_height="wrap_content"
         android:text="Este es el activity de HINTS"/>
 
+    <TextView
+        android:id="@+id/hint_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tienes 0 pistas disponibles"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+
 </LinearLayout>

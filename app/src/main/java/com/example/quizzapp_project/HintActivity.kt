@@ -1,6 +1,7 @@
 package com.example.quizzapp_project
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,10 +12,11 @@ class HintActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_hint)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        val prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE)
+        val numHints = prefs.getInt("NUM_HINTS", 2) // Valor por defecto: 2 pistas
+
+        val hintText = findViewById<TextView>(R.id.hint_text)
+        hintText.text = "Tienes $numHints pistas disponibles"
     }
 }
