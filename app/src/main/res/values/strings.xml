@@ -163,4 +163,11 @@
     <string name="option2Q25">China</string>
     <string name="option3Q25">Reino Unido</string>
     <string name="option4Q25">Grecia</string>
+
+    <string-array name="Dificultades">
+        <item>FÁCIL</item>
+        <item>NORMAL</item>
+        <item>DIFÍCIL</item>
+    </string-array>
+
 </resources>

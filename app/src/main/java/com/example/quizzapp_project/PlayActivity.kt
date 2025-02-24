@@ -41,6 +41,11 @@ class PlayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
 
+        val prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE)
+        val dificultad = prefs.getString("DIFICULTAD", "NORMAL") ?: "NORMAL"
+
+        Toast.makeText(this, "Dificultad: $dificultad", Toast.LENGTH_SHORT).show()
+
         //Verifica si se crea el activity por un cambio de pantalla o porque el usuario le dio Start
         if (!quizAppModel.isFliping) {
             //No es un cambio de pantalla mezcla las preguntas y sus opciones
