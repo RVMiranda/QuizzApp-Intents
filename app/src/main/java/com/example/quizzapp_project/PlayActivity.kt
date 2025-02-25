@@ -26,6 +26,7 @@ class PlayActivity : AppCompatActivity() {
     private lateinit var questionImg : ImageView
     private lateinit var questionText: TextView
     private lateinit var resultText : TextView
+    private lateinit var numHintsText: TextView
 
     //Opciones de botones A,B,C Y D
     private lateinit var optionA : Button
@@ -76,6 +77,7 @@ class PlayActivity : AppCompatActivity() {
         questionImg = findViewById(R.id.question_img) //Imagen de la categoria
         questionText = findViewById(R.id.question_text) //Texto de la pregunta
         resultText = findViewById(R.id.result_text) //Si la pregunta fue contestada correctamente o incorrectamente
+        numHintsText = findViewById(R.id.numHints_text) //Num de hints
 
         //Opciones de botones A,B,C Y D
         optionA = findViewById(R.id.optionA_button)
@@ -111,6 +113,7 @@ class PlayActivity : AppCompatActivity() {
         optionA.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
                 if (!quizAppModel.currentQuestion.opciones[0].deshabilitado) { //Si no ha sido descartada por una hint
+                    quizAppModel.currentQuestion.opciones[0].seleccionada = true
                     if (quizAppModel.currentQuestion.opciones[0].esCorrecta) {
                         preguntaCorrecta()
                     }
@@ -127,6 +130,7 @@ class PlayActivity : AppCompatActivity() {
         optionB.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
                 if (!quizAppModel.currentQuestion.opciones[1].deshabilitado) {
+                    quizAppModel.currentQuestion.opciones[1].seleccionada = true
                     if (quizAppModel.currentQuestion.opciones[1].esCorrecta) {
                         preguntaCorrecta()
                     } else {
@@ -142,6 +146,7 @@ class PlayActivity : AppCompatActivity() {
         optionC.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
                 if (!quizAppModel.currentQuestion.opciones[2].deshabilitado) {
+                    quizAppModel.currentQuestion.opciones[2].seleccionada = true
                     if (quizAppModel.currentQuestion.opciones[2].esCorrecta) {
                         preguntaCorrecta()
                     } else {
@@ -156,7 +161,8 @@ class PlayActivity : AppCompatActivity() {
         }
         optionD.setOnClickListener {
             if (!quizAppModel.currentQuestion.respondida) {
-                if (!quizAppModel.currentQuestion.opciones[2].deshabilitado) {
+                if (!quizAppModel.currentQuestion.opciones[3].deshabilitado) {
+                    quizAppModel.currentQuestion.opciones[3].seleccionada = true
                     if (quizAppModel.currentQuestion.opciones[3].esCorrecta) {
                         preguntaCorrecta()
                     } else {
@@ -178,9 +184,11 @@ class PlayActivity : AppCompatActivity() {
 
         if (quizAppModel.currentQuestion.numOpciones > 1) {
             if (quizAppModel.currentQuestion.opciones[0].deshabilitado) optionA.setBackgroundColor(this.getColor(R.color.WrongOption))
+            else if (quizAppModel.currentQuestion.opciones[0].seleccionada) optionA.setBackgroundColor(this.getColor(R.color.ColorOpcionS))
             else optionA.setBackgroundColor(this.getColor(R.color.ColorOpcion))
 
             if (quizAppModel.currentQuestion.opciones[1].deshabilitado) optionB.setBackgroundColor(this.getColor(R.color.WrongOption))
+            else if (quizAppModel.currentQuestion.opciones[1].seleccionada) optionB.setBackgroundColor(this.getColor(R.color.ColorOpcionS))
             else optionB.setBackgroundColor(this.getColor(R.color.ColorOpcion))
             optionA.setText(quizAppModel.currentQuestion.opciones[0].optionId)
             optionB.setText(quizAppModel.currentQuestion.opciones[1].optionId)
@@ -188,10 +196,12 @@ class PlayActivity : AppCompatActivity() {
             if (quizAppModel.currentQuestion.numOpciones > 2) {
                 optionC.setText(quizAppModel.currentQuestion.opciones[2].optionId)
                 if (quizAppModel.currentQuestion.opciones[2].deshabilitado) optionC.setBackgroundColor(this.getColor(R.color.WrongOption))
+                else if (quizAppModel.currentQuestion.opciones[2].seleccionada) optionC.setBackgroundColor(this.getColor(R.color.ColorOpcionS))
                 else optionC.setBackgroundColor(this.getColor(R.color.ColorOpcion))
                 if (quizAppModel.currentQuestion.numOpciones > 3) { //Modo Difícil
                     optionD.setText(quizAppModel.currentQuestion.opciones[3].optionId)
                     if (quizAppModel.currentQuestion.opciones[3].deshabilitado) optionD.setBackgroundColor(this.getColor(R.color.WrongOption))
+                    else if (quizAppModel.currentQuestion.opciones[3].seleccionada) optionD.setBackgroundColor(this.getColor(R.color.ColorOpcionS))
                     else optionD.setBackgroundColor(this.getColor(R.color.ColorOpcion))
                 }
                 else { //Modo Normal
@@ -206,7 +216,7 @@ class PlayActivity : AppCompatActivity() {
         }
 
 
-
+        numHintsText.text = getString(R.string.hints_count, quizAppModel.NumHints)
 
         //Cambia la imagen de la pregunta segun su categoria
         when(quizAppModel.currentQuestion.Categoria) {
@@ -274,7 +284,10 @@ class PlayActivity : AppCompatActivity() {
         else {
             resultText.setText(R.string.result_ok) //Si el usuario NO uso una pista
             quizAppModel.RachaAciertos = 1
-            if (quizAppModel.RachaAciertos % 2 == 0) Toast.makeText(this, "Haz ganado una Hint! 🐭, Tienes ahora: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
+            if (quizAppModel.RachaAciertos % 2 == 0) {
+                Toast.makeText(this, "Haz ganado una Hint! 🐭, Tienes ahora: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
+                numHintsText.text = getString(R.string.hints_count, quizAppModel.NumHints)
+            }
 
         }
 
@@ -321,11 +334,9 @@ class PlayActivity : AppCompatActivity() {
                     "Pistas restantes: ${quizAppModel.NumHints}",
                     Toast.LENGTH_SHORT
                 ).show()
-                else if (aux == 2) Toast.makeText(
-                    this,
-                    "Pregunta respondida con pistas, Pistas restantes: ${quizAppModel.NumHints}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                else if (aux == 2) {
+                    Toast.makeText(this, "Pregunta respondida con pistas, Pistas restantes: ${quizAppModel.NumHints}", Toast.LENGTH_SHORT).show()
+                }
                 else Toast.makeText(
                     this,
                     "No tienes pistas! :(",
@@ -346,6 +357,7 @@ class PlayActivity : AppCompatActivity() {
         // Mostrar el diálogo
         builder.show()
     }
+
 
     private fun checkEndGame() {
         if (quizAppModel.getAnsweredCount() >= quizAppModel.NumQuestions) {

@@ -43,4 +43,5 @@ data class Question(var Categoria:Int, @StringRes val questionId: Int, var numOp
         return 0 //Quiere decir que no encontro opcion
     }
 
+
 }

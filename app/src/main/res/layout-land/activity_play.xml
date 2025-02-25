@@ -30,6 +30,17 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="14sp" />
+    <TextView
+        android:id="@+id/numHints_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/hints_count"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="14dp"/>
 
     <TextView
         android:id="@+id/result_text"
